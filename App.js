@@ -4,7 +4,7 @@ import {baseLink, key} from './config.json';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// test ID: tt 04 685 69
+
 TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
 
 const Stack = createStackNavigator();
@@ -35,7 +35,7 @@ function HomeScreen({route, navigation }) {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.viewUserTimerText}>
-      <Text style={styles.HomeText}>Search By ID:</Text>
+      <Text style={styles.HomeText}>Search By Name:</Text>
       </View>
       <View style={styles.viewUserTimerText}>
         <TextInput  value={nameOfMovie} onChangeText={(text) => setMovieName(text)} style={styles.userTimerInput} />
@@ -87,25 +87,29 @@ function MovieInfoByID({route}) {
 function MovieInfo({route, navigation}) {
 
   const MovieName = route.params.MovieName;
-  const pages = 10;
 
   const[pageNum, setPageNum] = useState(1);
   const [isLoading, setLoading] = useState(true);
   const [moviedata, setMovieData] = useState([]);
+  const [sizeOfData, setSizeOfData] = useState(1);
 
   const fetchApiCall = async (nameOfMovie, pageNum) => {
     const nameUrl = `${baseLink}?s=${nameOfMovie}&page=${pageNum}&apikey=${key}`;
     const response = await fetch(nameUrl);
     const data = await response.json();
+    setSizeOfData(data.totalResults)
     setLoading(false);
-    var newArray = (moviedata).concat(data.Search);
-    setMovieData(newArray);
+    if(data.Response){
+      var newArray = (moviedata).concat(data.Search);
+      setMovieData(newArray);
+      setPageNum(pageNum+1)
+    }
+    
   }
 
   useEffect( () => { 
-    if(pageNum != pages){
+    if(moviedata.length < sizeOfData){
       fetchApiCall(MovieName,pageNum);
-      setPageNum(pageNum+1)
     }
     
   }, [moviedata]);
