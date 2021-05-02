@@ -12,6 +12,9 @@ you select.
 
 ## Demo
 run this project on my snack
+
+**Does not work with the web Emulator only phone emulator**
+
 > [Movie Browser Demo](https://snack.expo.io/@dramir99/movie-browser)
 
 
