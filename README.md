@@ -9,6 +9,12 @@ you select.
 ## Author
 
 - [@Daniel Ramirez](https://github.com/Dramir99)
+
+## Demo
+run this project on my snack
+> [Movie Browser Demo](https://snack.expo.io/@dramir99/movie-browser)
+
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your config.json file
